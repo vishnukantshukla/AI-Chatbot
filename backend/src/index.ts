@@ -1,22 +1,19 @@
-import express from "express";
-const app = express();
-
-// GET - when we want to get get from database
-
-// PUT ->  if we want to update the data we use put
-
-// POST- when we create new post
-
-// DELETE
-
-//middlewares
-app.use(express.json()); // it is used to read the data from user in the form of json
+import app from "./app.js";
+import connectToDatabase from "./db/connection.js";
 
 
-//connections and listners
+// connections and listners
+const PORT = process.env.PORT || 5000;
+connectToDatabase()
+    .then(()=>{
+        app.listen(PORT,()=>{
+            console.log(`Server open at ${PORT} && Connected to Database👍`);
+        });
+        
+    })
+    .catch((err)=>{
+        console.log(err);
+        
+    })
 
-
-app.listen(5000,()=>{
-    console.log("Server open");
-});
-
+ 
