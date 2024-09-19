@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const dotenv_1 = require("dotenv");
-(0, dotenv_1.config)();
+(0, dotenv_1.config)(); // with the help of thsi we can connect our database securely
 const app = (0, express_1.default)();
 // GET - when we want to get get from database
 // PUT ->  if we want to update the data we use put

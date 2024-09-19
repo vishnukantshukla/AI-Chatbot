@@ -1,6 +1,6 @@
 import express from "express";
 import {config} from "dotenv";
-config();
+config(); // with the help of thsi we can connect our database securely
 const app = express();
 
 
