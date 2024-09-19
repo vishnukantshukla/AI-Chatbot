@@ -1,5 +1,8 @@
 import express from "express";
 import {config} from "dotenv";
+import morgan from 'morgan';
+import appRouter from "./routes";
+
 config(); // with the help of thsi we can connect our database securely
 const app = express();
 
@@ -15,7 +18,11 @@ const app = express();
 //middlewares
 app.use(express.json()); // it is used to read the data from user in the form of json
 
+// remove morgan it in production but we used it in development mode for lock when api request is send to backend
+app.use(morgan("dev"));
 
-//connections and listners
+app.use("/api/v1",appRouter);
+
+
 
 export default app;
