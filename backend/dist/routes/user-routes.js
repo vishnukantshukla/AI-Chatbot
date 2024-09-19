@@ -4,5 +4,6 @@ const express_1 = require("express");
 const user_controllers_1 = require("../controllers/user-controllers");
 const userRoutes = (0, express_1.Router)();
 userRoutes.get("/", user_controllers_1.getAllUsers);
+userRoutes.post("/signup", user_controllers_1.userSignup);
 exports.default = userRoutes;
 //# sourceMappingURL=user-routes.js.map
