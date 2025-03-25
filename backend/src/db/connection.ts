@@ -12,7 +12,7 @@ export default async function connectToDatabase(){
 
 async function disconnectFromDatabase(){
     try{
-        await disconnect();  // when we want to disconnect from database
+        await disconnect();  // when we want to disconnect from database when anything wrong oocur as for thr security parameter
     }
     catch(error){
         console.log(error);
