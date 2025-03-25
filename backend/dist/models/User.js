@@ -12,7 +12,7 @@ const chatSchema = new mongoose_1.default.Schema({
         default: (0, crypto_1.randomUUID)(),
     },
     role: {
-        type: String,
+        type: String, // Ai Assisstant and second one is a user
         required: true,
     },
     content: {

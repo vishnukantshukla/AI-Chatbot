@@ -9,7 +9,7 @@ const chatSchema = new mongoose.Schema({
         default : randomUUID(),
     },
     role:{
-        type : String,
+        type : String,  // Ai Assisstant and second one is a user
         required : true,
     },
     content : {
@@ -36,4 +36,4 @@ const userSchema = new mongoose.Schema({
     chats:[chatSchema],
 });
 
-export default mongoose.model("User",userSchema);
+export default  mongoose.model("User",userSchema);

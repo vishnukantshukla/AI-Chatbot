@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.userSignup = exports.getAllUsers = void 0;
 const User_1 = __importDefault(require("../models/User"));
 const bcrypt_1 = require("bcrypt"); // bcrypt is used to encrypt the user string and then compare with user password
+// Route -1 
 const getAllUsers = async (req, res, next) => {
     // get All users from Db
     try {
@@ -18,6 +19,7 @@ const getAllUsers = async (req, res, next) => {
     }
 };
 exports.getAllUsers = getAllUsers;
+// bcrypt is used to encrpting the user string
 const userSignup = async (req, res, next) => {
     try {
         // user signup

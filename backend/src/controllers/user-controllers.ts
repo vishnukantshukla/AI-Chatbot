@@ -2,6 +2,7 @@ import {NextFunction,Request,Response} from "express";
 import User from "../models/User";
 import { hash } from "bcrypt" // bcrypt is used to encrypt the user string and then compare with user password
 
+// Route -1 
 export const getAllUsers = async (req:Request,res:Response,next:NextFunction)=>{
     // get All users from Db
     try{
@@ -16,7 +17,7 @@ export const getAllUsers = async (req:Request,res:Response,next:NextFunction)=>{
 }
 
 
-
+// bcrypt is used to encrpting the user string
 export const userSignup = async (req:Request,res:Response,next:NextFunction)=>{
 
     try{
