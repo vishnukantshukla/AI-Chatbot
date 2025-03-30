@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = connectToDatabase;
 exports.connectToDatabase = connectToDatabase;
 exports.disconnectFromDatabase = disconnectFromDatabase;
 const mongoose_1 = require("mongoose");
