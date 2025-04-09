@@ -6,6 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.userLogin = exports.userSignup = exports.getAllUsers = void 0;
 const User_1 = __importDefault(require("../models/User"));
 const bcrypt_1 = require("bcrypt"); // bcrypt is used to encrypt the user string and then compare with user password
+const token_manager_1 = require("../utils/token-manager");
+const constants_1 = require("../utils/constants");
 // Route -1 
 const getAllUsers = async (req, res, next) => {
     // get All users from Db
@@ -30,6 +32,23 @@ const userSignup = async (req, res, next) => {
         const hashPassword = await (0, bcrypt_1.hash)(password, 10);
         const user = new User_1.default({ name, email, password: hashPassword });
         await user.save();
+        // create token and store the cookie
+        res.clearCookie(constants_1.COOKIE_NAME, {
+            httpOnly: true,
+            domain: "localhost",
+            signed: true,
+            path: "/"
+        }); //  it will clear the cookie of the response of the user
+        const token = (0, token_manager_1.createToken)(user._id.toString(), user.email, "7d");
+        const expires = new Date();
+        expires.setDate(expires.getDate() + 7); // current date +7
+        res.cookie(constants_1.COOKIE_NAME, token, {
+            path: "/",
+            domain: "localhost",
+            expires,
+            httpOnly: true,
+            signed: true // signed the payload 
+        });
         return res.status(201).json({ message: "OK", id: user._id.toString() });
     }
     catch (error) {
@@ -50,6 +69,23 @@ const userLogin = async (req, res, next) => {
         if (!isPasswordCorrect) {
             return res.status(403).send("Incorrect Password");
         }
+        res.clearCookie(constants_1.COOKIE_NAME, {
+            httpOnly: true,
+            domain: "localhost",
+            signed: true,
+            path: "/"
+        }); //  it will clear the cookie of the response of the user
+        const token = (0, token_manager_1.createToken)(user._id.toString(), user.email, "7d");
+        const expires = new Date();
+        expires.setDate(expires.getDate() + 7); // current date +7
+        res.cookie(constants_1.COOKIE_NAME, token, {
+            path: "/",
+            domain: "localhost",
+            expires,
+            httpOnly: true,
+            signed: true // signed the payload 
+        }); //COOKIE_NAME = auth name,token and inside the root directory we will store the cookie
+        // now we will use cookie-parser to transfer the cookie from backend to the frontend
         return res.status(200).json({ message: "OK", id: user._id.toString() });
     }
     catch (error) {

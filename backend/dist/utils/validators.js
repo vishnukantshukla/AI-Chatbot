@@ -19,6 +19,7 @@ const validate = (validations) => {
 };
 exports.validate = validate;
 exports.loginValidator = [
+    // These all fields are validator
     (0, express_validator_1.body)("email").trim().isEmail().withMessage("Email is required "),
     (0, express_validator_1.body)("password").trim().isLength({ min: 6 }).withMessage("Passwor should contain atleast 6 characters "),
 ];
