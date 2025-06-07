@@ -1,4 +1,4 @@
-import { createContext } from 'react'
+import { createContext, useContext,ReactNode } from 'react'
 import { useState,useEffect } from 'react';
 
 type User={
@@ -15,7 +15,7 @@ type UserAuth = {
 }
 const AuthContext = createContext<UserAuth |null>(null);
 
-const  AuthProvider = ({children}:{children:ReactNode})=>{
+export const  AuthProvider = ({children}:{children:ReactNode})=>{
     const [user,setUser] = useState<User |null>(null);
     const [isLoggedIn,setIsLoggedIn] = useState(false);
 
@@ -37,3 +37,5 @@ const  AuthProvider = ({children}:{children:ReactNode})=>{
 
     
 }
+
+export const useAuth = ()=> useContext(AuthContext)
