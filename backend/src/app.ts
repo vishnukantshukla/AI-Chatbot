@@ -3,7 +3,7 @@ import {config} from "dotenv";
 import morgan from 'morgan';
 import appRouter from "./routes";
 import cookieParser from 'cookie-parser'
-
+import cors from "cors";
 config(); // with the help of thsi we can connect our database securely
 const app = express();
 
@@ -17,6 +17,7 @@ const app = express();
 // DELETE
 
 //middlewares
+app.use(cors({origin:"http://localhost:5173", credentials:true}));
 app.use(express.json()); // it is used to read the data from user in the form of json
 app.use(cookieParser(process.env.COOKIE_SECRET))
 // remove morgan it in production but we used it in development mode for lock when api request is send to backend

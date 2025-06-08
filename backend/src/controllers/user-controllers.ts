@@ -56,7 +56,7 @@ export const userSignup = async (req:Request,res:Response,next:NextFunction)=>{
             httpOnly:true,
             signed:true   // signed the payload 
         });
-        return res.status(201).json({message : "OK" ,id:user._id.toString()});
+        return res.status(201).json({message : "OK" ,name:user.name,email:user.email});
         
     }
     catch(error){
@@ -103,7 +103,7 @@ export const userLogin = async (req:Request,res:Response,next:NextFunction)=>{
         }); //COOKIE_NAME = auth name,token and inside the root directory we will store the cookie
 
         // now we will use cookie-parser to transfer the cookie from backend to the frontend
-        return res.status(200).json({message : "OK" ,id:user._id.toString()});
+        return res.status(200).json({message : "OK" ,name:user.name,email:user.email});
         
     }
     catch(error){

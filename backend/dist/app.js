@@ -8,6 +8,7 @@ const dotenv_1 = require("dotenv");
 const morgan_1 = __importDefault(require("morgan"));
 const routes_1 = __importDefault(require("./routes"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
+const cors_1 = __importDefault(require("cors"));
 (0, dotenv_1.config)(); // with the help of thsi we can connect our database securely
 const app = (0, express_1.default)();
 // GET - when we want to get get from database
@@ -15,6 +16,7 @@ const app = (0, express_1.default)();
 // POST- when we create new post
 // DELETE
 //middlewares
+app.use((0, cors_1.default)({ origin: "http://localhost:5173", credentials: true }));
 app.use(express_1.default.json()); // it is used to read the data from user in the form of json
 app.use((0, cookie_parser_1.default)(process.env.COOKIE_SECRET));
 // remove morgan it in production but we used it in development mode for lock when api request is send to backend
