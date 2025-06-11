@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userLogin = exports.userSignup = exports.getAllUsers = void 0;
+exports.verifyUser = exports.userLogin = exports.userSignup = exports.getAllUsers = void 0;
 const User_1 = __importDefault(require("../models/User"));
 const bcrypt_1 = require("bcrypt"); // bcrypt is used to encrypt the user string and then compare with user password
 const token_manager_1 = require("../utils/token-manager");
@@ -93,4 +93,21 @@ const userLogin = async (req, res, next) => {
     }
 };
 exports.userLogin = userLogin;
+const verifyUser = async (req, res, next) => {
+    try {
+        const user = await User_1.default.findById(res.locals.jwtData.id);
+        if (!user) {
+            return res.status(401).send("User not registered Or Token malfunctioned");
+        }
+        console.log(user._id.toString(), res.locals.jwtData.id);
+        if (user._id.toString() !== res.locals.jwtData.id) {
+            return res.status(401).send("Permissions didn't match");
+        }
+        return res.status(200).json({ message: "OK", name: user.name, email: user.email });
+    }
+    catch (error) {
+        return res.status(200).json({ message: "ERROR", cause: error.message });
+    }
+};
+exports.verifyUser = verifyUser;
 //# sourceMappingURL=user-controllers.js.map
