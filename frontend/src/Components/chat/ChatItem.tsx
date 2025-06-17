@@ -38,9 +38,9 @@ const ChatItem=({content,role,}:{content:string,role:"user" |"assistant";})=> {
             {auth?.user?.name.split(" ")[1][0]}
         </Avatar>
         <Box>
-            <Typography fontSize={"20px"}>
-                {content}
-            </Typography>
+         {!messageBlocks && (<Typography sx={{fontSize:"20px"}}>{content}</Typography>)}
+
+         {messageBlocks && messageBlocks.length && messageBlocks.map((block)=> (isCodeBlock(block)? (<SyntaxHighlighter style={coldarkDark} language='javascript' >{block}</SyntaxHighlighter>):(<Typography sx={{fontSize:"20px"}}>{block}</Typography>)))}   
         </Box>
      </Box>)
 
