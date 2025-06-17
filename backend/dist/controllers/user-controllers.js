@@ -8,7 +8,7 @@ const User_1 = __importDefault(require("../models/User"));
 const bcrypt_1 = require("bcrypt"); // bcrypt is used to encrypt the user string and then compare with user password
 const token_manager_1 = require("../utils/token-manager");
 const constants_1 = require("../utils/constants");
-// Route -1 
+// Route -1
 const getAllUsers = async (req, res, next) => {
     // get All users from Db
     try {
@@ -37,7 +37,7 @@ const userSignup = async (req, res, next) => {
             httpOnly: true,
             domain: "localhost",
             signed: true,
-            path: "/"
+            path: "/",
         }); //  it will clear the cookie of the response of the user
         const token = (0, token_manager_1.createToken)(user._id.toString(), user.email, "7d");
         const expires = new Date();
@@ -47,9 +47,11 @@ const userSignup = async (req, res, next) => {
             domain: "localhost",
             expires,
             httpOnly: true,
-            signed: true // signed the payload 
+            signed: true, // signed the payload
         });
-        return res.status(201).json({ message: "OK", name: user.name, email: user.email });
+        return res
+            .status(201)
+            .json({ message: "OK", name: user.name, email: user.email });
     }
     catch (error) {
         return res.status(200).json({ message: "ERROR", cause: error.message });
@@ -73,7 +75,7 @@ const userLogin = async (req, res, next) => {
             httpOnly: true,
             domain: "localhost",
             signed: true,
-            path: "/"
+            path: "/",
         }); //  it will clear the cookie of the response of the user
         const token = (0, token_manager_1.createToken)(user._id.toString(), user.email, "7d");
         const expires = new Date();
@@ -83,10 +85,12 @@ const userLogin = async (req, res, next) => {
             domain: "localhost",
             expires,
             httpOnly: true,
-            signed: true // signed the payload 
+            signed: true, // signed the payload
         }); //COOKIE_NAME = auth name,token and inside the root directory we will store the cookie
         // now we will use cookie-parser to transfer the cookie from backend to the frontend
-        return res.status(200).json({ message: "OK", name: user.name, email: user.email });
+        return res
+            .status(200)
+            .json({ message: "OK", name: user.name, email: user.email });
     }
     catch (error) {
         return res.status(200).json({ message: "ERROR", cause: error.message });
@@ -103,9 +107,12 @@ const verifyUser = async (req, res, next) => {
         if (user._id.toString() !== res.locals.jwtData.id) {
             return res.status(401).send("Permissions didn't match");
         }
-        return res.status(200).json({ message: "OK", name: user.name, email: user.email });
+        return res
+            .status(200)
+            .json({ message: "OK", name: user.name, email: user.email });
     }
     catch (error) {
+        console.log(error);
         return res.status(200).json({ message: "ERROR", cause: error.message });
     }
 };
