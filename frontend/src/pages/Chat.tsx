@@ -1,17 +1,19 @@
-import React, { useLayoutEffect, useRef, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import {Avatar, Box, Typography,Button,IconButton}   from "@mui/material"
 import {red} from "@mui/material/colors"
 import { useAuth } from '../context/AuthContext'
 import ChatItem from '../Components/chat/ChatItem';
 import {IoMdSend}  from 'react-icons/io'
-import { getUserChat, sendChatRequest } from '../helpers/api-communicator';
+import { deleteUserChat, getUserChat, sendChatRequest } from '../helpers/api-communicator';
 import toast from 'react-hot-toast';
+import {useNavigate} from "react-router-dom"
 
 type Message =  {
    role : "user" | "assistant";
    content:string;
 }
 function Chat() {
+  const navigate = useNavigate()
   const inputRef = useRef<HTMLInputElement | null>(null);
   const auth =  useAuth();
   const [chatMessages,setChatMessages] = useState<Message[]>([])
@@ -28,7 +30,18 @@ function Chat() {
   }
 
   const handleDeleteChats =  async () =>{
-    
+     try{
+      toast.loading("Deleting Chats",{id:"deletechats"})
+      await deleteUserChat();
+      setChatMessages([]);
+      toast.success("Deleted Chats Successfully",{id:"deletechats"})
+
+     }
+     catch(error){
+      console.log(error);
+      toast.error("Deleting chats failed",{id:"deletechats"})
+
+     }
   }
 
   useLayoutEffect(() => {
@@ -44,7 +57,13 @@ function Chat() {
         toast.error("Loading Failed", { id: "loadchats" });
       });
   }
-}, [auth?.isLoggedIn, auth?.user]); // ✅ also add dependency array
+}, [auth?.isLoggedIn, auth?.user]);
+
+ useEffect(() => {
+    if (!auth?.user) {
+      navigate("/login");
+    }
+  }, [auth?.user, navigate]);
 
   return (
      <Box sx={{display:'flex',flex:1,width:'100%',height:"100%",mt:3,gap:3,}}>
@@ -59,7 +78,7 @@ function Chat() {
                 <Typography sx={{mx:'auto', fontFamily:"work sans",my:4,p:3}}>
                   You can ask questions related to Knowledge, Business, Advices, Education, etc., but avoid sharing personal information.
                 </Typography>
-                <Button sx={{width:"200px",my:'auto',color:'white', fontWeight:"700",borderRadius:3,mx:"auto",bgcolor:red[300],":hover":{
+                <Button onClick={handleDeleteChats} sx={{width:"200px",my:'auto',color:'white', fontWeight:"700",borderRadius:3,mx:"auto",bgcolor:red[300],":hover":{
                   bgcolor:red.A400
                 }}}>CLEAR CONVERSATION</Button>
             </Box>

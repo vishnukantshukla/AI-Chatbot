@@ -1,12 +1,22 @@
-import {Router} from "express";
+import { Router } from "express";
 import { verifyToken } from "../utils/token-manager";
 import { chatCompletionValidator } from "../utils/validators";
-import { generateChatCompletion, sendChatsToUser } from "../controllers/chat-controllers";
+import {
+    deleteChats,
+  generateChatCompletion,
+  sendChatsToUser,
+} from "../controllers/chat-controllers";
 
 // Protected API
 const chatRoutes = Router();
-chatRoutes.post("/new",chatCompletionValidator,verifyToken,generateChatCompletion)
+chatRoutes.post(
+  "/new",
+  chatCompletionValidator,
+  verifyToken,
+  generateChatCompletion
+);
 
-chatRoutes.get("/all-chats",verifyToken,sendChatsToUser)
+chatRoutes.get("/all-chats", verifyToken, sendChatsToUser);
+chatRoutes.delete("/delete", verifyToken, deleteChats);
 
 export default chatRoutes;

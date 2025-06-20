@@ -8,5 +8,6 @@ const chat_controllers_1 = require("../controllers/chat-controllers");
 const chatRoutes = (0, express_1.Router)();
 chatRoutes.post("/new", validators_1.chatCompletionValidator, token_manager_1.verifyToken, chat_controllers_1.generateChatCompletion);
 chatRoutes.get("/all-chats", token_manager_1.verifyToken, chat_controllers_1.sendChatsToUser);
+chatRoutes.delete("/delete", token_manager_1.verifyToken, chat_controllers_1.deleteChats);
 exports.default = chatRoutes;
 //# sourceMappingURL=chat-routes.js.map
