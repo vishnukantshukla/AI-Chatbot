@@ -16,7 +16,10 @@ const app = (0, express_1.default)();
 // POST- when we create new post
 // DELETE
 //middlewares
-app.use((0, cors_1.default)({ origin: "http://localhost:5173,http://localhost:5174,http://localhost:3000 ", credentials: true }));
+app.use((0, cors_1.default)({
+    origin: "http://localhost:5173,http://localhost:5174,http://localhost:3000,https://ai-chatbot-frontend-7tdd.onrender.com/ ",
+    credentials: true,
+}));
 app.use(express_1.default.json()); // it is used to read the data from user in the form of json
 app.use((0, cookie_parser_1.default)(process.env.COOKIE_SECRET));
 // remove morgan it in production but we used it in development mode for lock when api request is send to backend
