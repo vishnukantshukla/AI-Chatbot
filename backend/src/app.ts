@@ -17,7 +17,7 @@ const app = express();
 // DELETE
 
 //middlewares
-app.use(cors({origin:"http://localhost:5173", credentials:true}));
+app.use(cors({origin:"http://localhost:5173,http://localhost:5174,http://localhost:3000 ", credentials:true}));
 app.use(express.json()); // it is used to read the data from user in the form of json
 app.use(cookieParser(process.env.COOKIE_SECRET))
 // remove morgan it in production but we used it in development mode for lock when api request is send to backend
