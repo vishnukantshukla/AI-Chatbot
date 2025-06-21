@@ -12,4 +12,7 @@ export default defineConfig({
       "ai-chatbot-frontend-7tdd.onrender.com",
     ],
   },
+  build: {
+    chunkSizeWarningLimit: 10000, // in kB, e.g., 1000kB = 1MB
+  },
 });
