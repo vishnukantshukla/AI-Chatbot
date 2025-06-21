@@ -89,7 +89,7 @@ function Chat() {
             </Typography>
             <Box sx={{width:"100%",height:"60vh", borderRadius:3,mx:'auto',display:'flex',flexDirection:"column",overflow:'scroll',overflowX:"hidden", overflowY:"auto",scrollBehavior:"smooth"}}>
                 {chatMessages.map((chat,index)=>
-                //@ts-ignore
+                
                   (<ChatItem content={chat.content} role = {chat.role}  key={index}/>))}
             </Box>
             <div style={{width:"100%",padding:"20px",borderRadius:8,backgroundColor:"rgb(17,27,39)",display:"flex",margin:"auto"}}>
